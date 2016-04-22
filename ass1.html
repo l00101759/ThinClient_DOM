@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>
+  Assignment 1 - Fraser Cassidy 
+</title>
+
+<head>
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script src="prism.js"></script>
+  <script type="text/javascript" src="script.js"></script>
+  <link rel="stylesheet" type="text/css" href="stylesheet.css"/>
+  <link rel="stylesheet" href="prism.css" />
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="ass1.html"><strong>DOM Inspector</strong> </a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="#" id="displayDom" data-toggle="modal" data-target="#domModal">
+          <span class="glyphicon glyphicon-file"></span>Display DOM</a>
+	  </li>
+      
+	  <li class="dropdown">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><span class="glyphicon glyphicon-plus">
+				  </span> Add Element
+        <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <!--<li><a href="#" id= "addParent"  alt="" data-toggle="modal" data-target="#myModal">
+                <span class="glyphicon glyphicon-plus">
+              </span> Parent
+              </a>
+		  </li>-->
+          <li>
+			  <a href="#" id= "addSibling"  alt="" data-toggle="modal" data-target="#myModal">
+					<span class="glyphicon glyphicon-plus"> </span> Sibling </a>
+		  </li>
+          <li>
+			  <a href="#" id= "addChild"  alt="" data-toggle="modal" data-target="#myModal">
+                <span class="glyphicon glyphicon-plus"></span> Child </a>
+		  </li>
+        </ul>
+      </li>
+	  <li>
+		  <a href="#" id="remove">
+			<span class="glyphicon glyphicon-trash"></span> Remove	</a>
+	  </li>
+	  <li>
+		  <a href="#"id="displayOperations"> 
+			<span class="glyphicon glyphicon-info-sign"></span> DOM Operations	 </a>
+
+	  </li>
+    </ul>
+	<ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="glyphicon glyphicon-cog">
+				  </span> Options <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#" id="showHideCtrl">Show/Hide Controls  </a></li>
+            <!--<li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>-->
+          </ul>
+        </li>
+      </ul>
+	  
+  </div>
+</nav>
+
+
+<div class="row">
+  <div id="sideNavHolder">
+	  <div id="sideNav" class="col-md-3">
+		<br>
+			<div class="well">
+				<div class="btn-group" id="navBtnDiv">
+				  <input id="goParent" type="image" src="img/up.svg" height="60" width="60" />
+				  <input id="next" type="image" src="img/right.svg" height="60" width="60"/>
+				  <br>
+				  <input id="previous" type="image" src="img/left.svg"  height="60" width="60" />
+				  <input id="goChild" type="image" src="img/down.svg" height="60" width="60"/>
+				  </div>
+				<br>
+				<br>
+				<br>
+				<br>
+				<div id="homeDiv">
+					<button id="btnHome" type="button" class="btn btn-default btn-md">
+					  <span class="glyphicon glyphicon glyphicon-home"></span>			
+					</button>
+				</div>
+				<!--zoom Buttons-->
+				<div id="zoonBtns">
+						<button id="zoomIn" type="button" class="btn btn-default btn-md">
+						  <span class="glyphicon glyphicon glyphicon-zoom-in">
+						  </span>
+						  
+						</button>
+						<button id="zoomOut" type="button" class="btn btn-default btn-md">
+						  <span class="glyphicon glyphicon glyphicon-zoom-out">
+						  </span>
+						  
+						</button>
+				</div>
+				<!--end zoom-->
+				<br>
+		<div class="btn-group" id="hideShowBtns">
+			  
+			  <button id="hideChildren" type="button" class="btn btn-primary btn-sm">
+				<span class="glyphicon glyphicon-eye-close">
+				</span>
+				Hide Children 
+			  </button>
+			  <button id="showChildren" type="button" class="btn btn-primary btn-sm">
+				<span class="glyphicon glyphicon-eye-open">
+				</span>
+				Show Children 
+			  </button>
+			 
+		</div>
+		<hr>
+			<div id="tipInfo">
+				<div>Use  <kbd>del</kbd>to remove current node
+				</div>
+				<div>Use <kbd>←</kbd>, <kbd>→</kbd>, <kbd>↑</kbd>, <kbd>↓</kbd> keys to navigate
+				</div>
+				<div>
+				<br>
+				<div><span class="glyphicon glyphicon-random">
+				</span>  Double-Click an image to swap with current image</div>
+				<br>
+				  Removed Items 
+				  <span class="badge">
+					0 
+				  </span>
+				</div>
+				
+			</div>
+			</div>
+		
+	   </div>
+   </div>
+   
+   <div class="col-md-7" id="treeColumn">
+     <div class="tree">
+       
+       <ul>
+         <div>
+           <img  id="start" src="img/40.png" height="96" width="75">
+           <ul>
+             <div>
+               <img  src="img/39.png" height="96" width="75">
+               <ul>
+                 <div>
+                   <img src="img/38.png" height="96" width="75">
+                 </div>
+				 <div>
+                   <img src="img/2.png" height="96" width="75">
+                 </div>
+                 
+               </ul>
+               
+             </div>
+             
+             <div>
+               <img src="img/21.png" height="96" width="75">
+               <ul>
+                 <div>
+                   <img  src="img/20.png" height="96" width="75">
+                 </div>
+                 <div>
+                   <img src="img/5.png" height="96" width="75">
+                   
+                 </div>
+               </ul>
+               
+             </div>
+           </ul>
+         </div>
+       </ul>
+       
+       
+     </div>
+   </div>
+   <!--<div class="col-sm-3">
+
+		 
+	</div>-->
+   </div>
+</div>
+ 
+<!-- DOM Modal -->
+<div id="domModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">The DOM</h4>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!--the dom tree will go here-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div><!--END Dom Modal -->
+
+<!-- IMAGE Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+        <h4 class="modal-title">
+          Add Element
+        </h4>
+      </div>
+      <div class="modal-body">
+        <b>
+          Select an image 
+        </b>
+          <div class="container">
+            <br>
+            <div id="myCarousel" class="carousel" data-ride="carousel" data-interval="false">
+              <!-- Indicators -->
+              <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active">
+                </li>
+                <li data-target="#myCarousel" data-slide-to="1">
+                </li>
+                <li data-target="#myCarousel" data-slide-to="2">
+                </li>
+                <li data-target="#myCarousel" data-slide-to="3">
+                </li>
+                <li data-target="#myCarousel" data-slide-to="4">
+                </li>
+                <li data-target="#myCarousel" data-slide-to="5">
+                </li>
+                <li data-target="#myCarousel" data-slide-to="6">
+                </li>
+                <li data-target="#myCarousel" data-slide-to="7">
+                </li>
+                <li data-target="#myCarousel" data-slide-to="8">
+                </li>
+                <li data-target="#myCarousel" data-slide-to="9">
+                </li>
+				<li data-target="#myCarousel" data-slide-to="10">
+                </li>
+				<li data-target="#myCarousel" data-slide-to="11">
+                </li>
+				<li data-target="#myCarousel" data-slide-to="12">
+                </li>
+              </ol>
+              
+              <!-- Wrapper for slides --> 			  
+              <div class="carousel-inner" role="listbox">
+                <div id="firstImgCar" class="item active">
+                  <img src="img/1.png"  >
+                </div>
+                <div class="item">
+                  <img src="img/12.png"  >
+                </div>
+                <div class="item">
+                  <img src="img/15.png" >
+                </div>
+                <div class="item">
+                  <img src="img/30.png" >
+                </div>
+				<div class="item">
+                  <img src="img/25.png" >
+                </div>
+				<div class="item">
+                  <img src="img/35.png" >
+                </div>
+				<div class="item">
+                  <img src="img/21.png" >
+                </div>
+                <div class="item">
+                  <img src="img/5.png" >
+                </div>
+                <div class="item">
+                  <img src="img/6.png" >
+                </div>
+                <div class="item">
+                  <img src="img/7.png" >
+                </div>
+                <div class="item">
+                  <img src="img/23.png" >
+                </div>
+                <div class="item">
+                  <img src="img/33.png" >
+                </div>
+                <div id="carouselImages" class="item">
+                  <img src="img/10.png" >
+                </div>
+              </div>
+              
+              
+              <!-- Left and right controls -->
+              <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true">
+                </span>
+                <span class="sr-only">
+                  Previous
+                </span>
+              </a>
+              <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true">
+                </span>
+                <span class="sr-only">
+                  Next
+                </span>
+              </a>
+            </div>
+          </div>
+		  
+		  
+          <br>
+          <br>
+        </div>
+        <div class="modal-footer">
+          <input id="imgFile" type="file" style="display:none" name="myfile" >
+		  <button type="button" id="btnAddImage" class="btn btn-default" >
+            <span class="glyphicon glyphicon-folder-open">
+				  </span>  Add Image
+          </button>
+          <button type="button" id="btnCloseModal" class="btn btn-default" data-dismiss="modal">
+            <span class="glyphicon glyphicon-ok">
+				  </span> Choose
+          </button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<br>
+
+
+
+<br>
+<Br>
+<div id="operationsPanel" style="display:none">
+  <!-- *********************** PANELS -  Containing HTML and JQuery Functions ************************************-->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <strong>
+              HTML Elements Added
+            </strong>
+          </div>
+          <div id="htmlFunc" class="panel-body">
+		  
+		   <pre class="line-numbers" id="childCode" style="display: none">
+			<pre>
+				<code  class="language-markup" id="childCodeCode">
+	&lt;ul>			
+		&lt;div>
+			&lt;img  src="img/35.png" height="96" width="75">
+		&lt;/div>
+	&lt;/ul>
+				</code>
+		    </pre>
+		   </pre>
+		   
+		   <pre class="line-numbers" id="childCode2" style="display: none">
+			<pre>
+				<code  class="language-markup" id="childCodeCode2">
+				
+	&lt;div>
+		&lt;img  src="img/45.png" height="96" width="75">
+	&lt;/div>
+	
+				</code>
+		    </pre>
+		   </pre>
+             
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <strong>
+              JQuery Funtions
+            </strong>
+          </div>
+          <div  id="jqueryFunc"class="panel-body">
+            <pre id="nextCode" style="display: none" class="line-numbers">
+<pre>
+<code  class="language-javascript">
+function goToRightSibling()
+{
+	$check = $curr.parent();
+	$check = $check.next(); 
+
+	if($check.length)
+	{
+		$curr.css( "background", "white" );
+		$curr = $curr.parent();
+		$curr = $curr.next(); 
+		$curr = $curr.find("img:first");
+		$curr.css( "background", "#f99" );
+	}
+
+}
+</code>
+</pre>
+</pre>
+                      
+                      <pre id="leftCode" style="display: none" class="line-numbers" id="code">
+<pre>
+<code class="language-javascript">
+function goToLeftSibling()
+{
+	$check = $curr.parent();
+	$check = $check.prev(); 
+
+	if($check.length)
+	{
+		$curr.css( "background", "white" );
+		$curr = $curr.parent(); 
+		$curr = $curr.prev(); 
+		$curr = $curr.find("img:first");
+		$curr.css( "background", "#f99" );
+	}
+}
+</code>
+</pre>
+</pre>
+                      <pre id="upCode" style="display: none" class="line-numbers" id="code">
+<pre>
+<code  class="language-javascript">
+function goToParent()
+{
+	$check = $curr.parents("ul:first");
+	$check = $check.prev();
+
+	if($check.length)
+	{
+		$curr.css( "background", "white" );
+		$curr = $curr.parents("ul:first");
+		$curr = $curr.prev();
+		$curr.css( "background", "#f99" );
+	}
+
+}
+</code>
+</pre>
+</pre>
+                      
+                      <pre id="downCode" style="display: none" class="line-numbers" id="code">
+<pre>
+<code  class="language-javascript">
+function goToChild()
+{
+	$check = $curr.next();
+	$check = $check.find("img:first");
+
+	if($check.length)
+	{
+		$curr.css( "background", "white" );
+		$curr = $curr.next();
+		$curr = $curr.find("img:first");
+		$curr.css( "background", "#f99" );
+	}
+
+}
+</code>
+</pre>
+</pre>
+                      
+                  </div>
+            </div>
+       </div>
+	</div>
+	<!--**********************************************---------->
+</div>
+
+</body>
+
+
+
+</html>
